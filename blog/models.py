@@ -8,7 +8,7 @@ class Post(models.Model):
         ("draft", "Draft"),
         ("published", "Published")
     )
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=60)
     author = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                related_name="blog_post")
