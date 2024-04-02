@@ -20,3 +20,6 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=250)
+
+    def __str__(self):
+        return self.title
