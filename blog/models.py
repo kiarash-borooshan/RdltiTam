@@ -3,6 +3,16 @@ from django.db import models
 from django.utils import timezone
 
 
+class PostManager(models.Manager):
+    def y(self, year):
+        return self.filter(publish__year=year)
+
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status="published")
+
+
 class Post(models.Model):
     STATUS_CHOICES = (
         ("draft", "Draft"),
@@ -20,6 +30,9 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=250)
+
+    objects = PostManager()
+    published = PublishedManager()
 
     def __str__(self):
         return self.title
