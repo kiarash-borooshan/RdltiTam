@@ -9,7 +9,7 @@ def index(request):
 
 
 def post_list(request):
-    # ol = get_object_or_404(Post)
+    # ol = get_object_or_404(Post) # فقط برای تک آبجکت بکار می‌رود
     # ol = Post.published.all()
     # ol = Post.objects.y(2020)
     # ol = Post.objects.filter(publish__year="2024")
@@ -30,3 +30,10 @@ def post_list(request):
                   "post/post_list.html",
                   {"posts": ol})
 
+
+def post_detail(request, pk, slug):
+    # post = Post.objects.get(pk=pk, slug=slug)
+    post = get_object_or_404(Post, pk=pk, slug=slug)
+    return render(request,
+                  "post/post_detail.html",
+                  {"post": post})
