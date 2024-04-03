@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} list {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css' %}">
+{% endblock %}
+
+{% block content %}
 <h1> لیست پست‌ها </h1>
 <ul>
     {% for post in posts %}
@@ -14,7 +17,7 @@
                     {{ post.title }}
                 </a>
             </h2>
-            <h4>
+            <h4 class="test">
                 {{ post.body }}
             </h4>
 
@@ -22,5 +25,4 @@
     {% endfor %}
 </ul>
 
-</body>
-</html>
+{% endblock %}
