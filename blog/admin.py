@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Account
 
 
 @admin.register(Post)
@@ -14,3 +14,8 @@ class PostDecor(admin.ModelAdmin):
     date_hierarchy = "publish"
     list_editable = ("status", )
     list_display_links = ("author", )
+
+
+@admin.register(Account)
+class AccountDecor(admin.ModelAdmin):
+    list_display = ("title", )

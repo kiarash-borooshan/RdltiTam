@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
-
+from .forms import AccountForm
 from .models import Post
 
 
@@ -46,3 +46,18 @@ def post_detail(request, pk, slug):
     return render(request,
                   "post/post_detail.html",
                   {"post": post})
+
+
+def account_form(request):
+
+    if request.method == "POST":
+        form = AccountForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+
+    else:
+        form = AccountForm()
+        return render(request,
+                      "forms/account_form.html",
+                      {"form": form})
