@@ -15,20 +15,20 @@ def post_list(request):
     # ol = Post.objects.filter(publish__year="2024")
     # ol = Post.objects.filter(status="published")
     ol = Post.objects.all()
-    print("&&&&&&", ol)
+
     pagination = Paginator(ol, 2)
     page = request.GET.get("page")
 
     try:
-        post = pagination.page(page)
+        posts = pagination.page(page)
     except EmptyPage:
-        post = pagination.page(1)
+        posts = pagination.page(1)
     except PageNotAnInteger:
-        post = pagination.page(pagination.num_pages)
+        posts = pagination.page(pagination.num_pages)
 
     return render(request,
                   "post/post_list.html",
-                  {"posts": ol})
+                  {"posts": posts})
 
 
 def post_detail(request, pk, slug):
