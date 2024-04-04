@@ -4,7 +4,42 @@
 <h1 style="color: blue"> فرم اطلاعات </h1>
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="ثبت ">
+
+    <div>
+        <label >Username</label>
+        {{ form.first_name }}
+    </div>
+    <hr>
+    <br>
+
+    <div>
+        <label >نام خانوادگی </label>
+        {{ form.last_name }}
+    </div>
+    <hr>
+    <br>
+
+    <div>
+        <label  disabled="True">phone </label>
+        {{ form.phone }}
+    </div>
+    <hr>
+    <br>
+
+    <div>
+        <label >gender </label>
+        {{ form.gender }}
+    </div>
+    <hr>
+    <br>
+
+    <div>
+        <label  >address </label>
+        {{ form.address }}
+    </div>
+    <hr>
+    <br>
+
+    <button type="submit"> ثبت نام </button>
 </form>
 {% endblock %}

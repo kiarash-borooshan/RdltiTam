@@ -44,4 +44,24 @@ class Post(models.Model):
 
 
 class Account(models.Model):
-    title = models.CharField(max_length=60)
+    GENDER_CHOICES = (
+        ("آقا", "آقا"),
+        ("خانم", "خانم")
+    )
+    user = models.OneToOneField(User,
+                                on_delete=models.CASCADE,
+                                related_name="account")
+    phone = models.CharField(max_length=11)
+    gender = models.CharField(max_length=11,
+                              choices=GENDER_CHOICES,
+                              default="خانم")
+    address = models.TextField(null=True, blank=True)
+
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+

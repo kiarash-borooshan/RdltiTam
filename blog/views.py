@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from .forms import AccountForm
-from .models import Post
+from .models import Post, Account
 
 
 def index(request):
@@ -48,16 +48,41 @@ def post_detail(request, pk, slug):
                   {"post": post})
 
 
-def account_form(request):
+def account_form(request, *args, **kwargs):
+    user = request.user
+    # account = kwargs.get(pk=user)
+    try:
+        account = Account.objects.get(user=user)
+    except:
+        account = Account.objects.create(user=user)
+
+    if not user.is_authenticated:
+        return redirect("blog:index")
 
     if request.method == "POST":
         form = AccountForm(data=request.POST)
         if form.is_valid():
-            form.save()
+
+            cd = form.cleaned_data
+
+            account.gender = cd["gender"]
+            account.address = cd["address"]
+
+            user.first_name = cd["first_name"]
+            user.last_name = cd["last_name"]
+
+            user.save()
+            account.save()
+
             return redirect("/")
 
     else:
-        form = AccountForm()
+        form = AccountForm(initial={
+            "first_name": account.user.first_name,
+            "last_name": account.user.last_name,
+            "phone": account.phone,
+            "address": account.address,
+        })
         return render(request,
                       "forms/account_form.html",
                       {"form": form})

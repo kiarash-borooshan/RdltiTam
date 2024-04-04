@@ -18,4 +18,4 @@ class PostDecor(admin.ModelAdmin):
 
 @admin.register(Account)
 class AccountDecor(admin.ModelAdmin):
-    list_display = ("title", )
+    list_display = ("user", "gender", "address")
