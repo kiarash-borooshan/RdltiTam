@@ -24,7 +24,7 @@
         </li>
     {% endfor %}
 
-    {% include 'partial/pagination.html' %}
+    {% include 'partial/pagination.html' with posts=page_obj%}
 </ul>
 
 {% endblock %}
