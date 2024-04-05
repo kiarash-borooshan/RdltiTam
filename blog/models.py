@@ -59,6 +59,8 @@ class Account(models.Model):
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    age = models.PositiveIntegerField(default=0,
+                                      null=True, blank=True)
 
     objects = models.Manager()
 

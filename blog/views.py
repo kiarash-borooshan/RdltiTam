@@ -67,6 +67,8 @@ def account_form(request, *args, **kwargs):
 
             account.gender = cd["gender"]
             account.address = cd["address"]
+            account.age = cd["age"]
+            account.phone = cd["phone"]
 
             user.first_name = cd["first_name"]
             user.last_name = cd["last_name"]
@@ -82,7 +84,10 @@ def account_form(request, *args, **kwargs):
             "last_name": account.user.last_name,
             "phone": account.phone,
             "address": account.address,
+            "age": account.age,
         })
-        return render(request,
-                      "forms/account_form.html",
-                      {"form": form})
+
+    return render(request,
+                  "forms/account_form.html",
+                  {"form": form,
+                   "account": account})

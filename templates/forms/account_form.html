@@ -2,12 +2,56 @@
 
 {% block content %}
 <h1 style="color: blue"> فرم اطلاعات </h1>
+
+
 <form action="" method="post">
     {% csrf_token %}
+{% if form.errors %}
+    <p style="color:red">
+        لظفا خطاهای ۱ زیر را اصلاح کنید
+        <br>
+    </p>
+    {{ form.errors }}
+
+{% elif orm.management_form %}
+    <p style="color:red">
+        لظفا خطاهای ۲ زیر را اصلاح کنید
+        <br>
+    </p>
+    {{ form.management_form }}
+
+{% elif form.non_field_errors %}
+    <p style="color:red">
+        لظفا خطاهای ۳ زیر را اصلاح کنید
+        <br>
+    </p>
+    {{ form.non_field_errors }}
+
+{% elif form.non_form_errors %}
+    <p style="color:red">
+        لظفا خطاهای ۴ زیر را اصلاح کنید
+        <br>
+    </p>
+    {{ form.non_form_errors }}
+
+{% endif %}
+
+<br>
+<hr>
 
     <div>
-        <label >Username</label>
-        {{ form.first_name }}
+        <label >
+            <input type="text"
+                   name="first_name"
+                   id="id_first_name"
+                   maxlength="30"
+                   {% if form.first_name.value %}
+                    value="{{ form.first_name.value }}"
+                   {% else %}
+                    value="{{ account.user.first_name }}"
+                   {% endif %}
+            >
+        Username</label>
     </div>
     <hr>
     <br>
@@ -22,6 +66,13 @@
     <div>
         <label  disabled="True">phone </label>
         {{ form.phone }}
+    </div>
+    <hr>
+    <br>
+
+    <div>
+        <label  >age  </label>
+        {{ form.age }}
     </div>
     <hr>
     <br>
@@ -42,4 +93,6 @@
 
     <button type="submit"> ثبت نام </button>
 </form>
+
+
 {% endblock %}
